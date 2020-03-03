@@ -34,7 +34,7 @@ impl Object {
     }
 }
 
-fn handle_keys(tcod: &mut Tcod, player_x: &mut i32, player_y: &mut i32) -> bool {
+fn handle_keys(tcod: &mut Tcod, player: &mut Object) -> bool {
     use tcod::input::Key;
     use tcod::input::KeyCode::*;
 
@@ -72,8 +72,6 @@ fn main() {
 
     let mut tcod = Tcod { root, con };
 
-    // let mut player_x = SCREEN_WIDTH / 2;
-    // let mut player_y = SCREEN_HEIGHT / 2;
     let player = Object::new(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, '@', WHITE);
     let npc = Object::new(SCREEN_WIDTH / 2 - 5, SCREEN_HEIGHT / 2, '@', YELLOW);
     let mut objects = [player, npc];
@@ -81,7 +79,7 @@ fn main() {
     while !tcod.root.window_closed() {
         tcod.con.clear();
 
-        for object in &objects {
+        for object in &mut objects {
             object.draw(&mut tcod.con);
         }
 
